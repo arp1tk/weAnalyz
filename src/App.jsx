@@ -7,6 +7,8 @@ import Header from './pages/header'
 import {useRoutes} from "react-router-dom"
 import Signup from './pages/signup'
 import Forgot from './pages/forgot'
+import HelpdeskUserApp from './pages/dashboardUser'
+import TeamDashboard from './pages/dashboardTeam'
 function App() {
   const routesArray = [
     {
@@ -20,6 +22,14 @@ function App() {
        {
       path: "/forgot",
       element: <Forgot/>,
+    },
+      {
+      path: "/dashboard/user",
+      element: <HelpdeskUserApp/>,
+    },
+     {
+      path: "/dashboard/team",
+      element: <TeamDashboard/>,
     }
   ];
   
