@@ -1,4 +1,17 @@
+import { useState } from "react";
 export default function MyTicketView() {
+    const [selectedTicket, setSelectedTicket] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = (ticket) => {
+    setSelectedTicket(ticket);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedTicket(null);
+    setShowModal(false);
+  };
   const tickets = [
     {
       id: "1234",
@@ -172,9 +185,12 @@ const renderStars = (rating, index) => {
         index % 2 === 0 ? "bg-[#C4C4C45E]" : "bg-[#C4C4C48F]"
       }`}
     >
-      <td className="px-4 py-3 text-[22px] text-[#000AFF] underline">
-        {ticket.id}
-      </td>
+      <td
+  className="px-4 py-3 text-[22px] text-[#000AFF] underline cursor-pointer"
+  onClick={() => openModal(ticket)}
+>
+  {ticket.id}
+</td>
       <td className="px-4 py-3 text-[22px] text-[#000000DB]">
         {ticket.subject}
       </td>
@@ -195,6 +211,38 @@ const renderStars = (rating, index) => {
 </tbody>
 
         </table>
+        {showModal && selectedTicket && (
+  <div
+    className="fixed inset-0 font-sanchez bg-gray-400 bg-opacity-50 flex justify-center items-center z-50"
+    onClick={(e) => e.target === e.currentTarget && closeModal()}
+  >
+    <div className="bg-white p-8 rounded shadow-md w-[600px] text-left">
+      <h2 className="text-2xl font-semibold text-center mb-4">Ticket Details</h2>
+      <div className="space-y-2 text-lg">
+        <p><strong>Ticket No:</strong> {selectedTicket.id}</p>
+        <p><strong>Date:</strong> {selectedTicket.date || "N/A"}</p>
+        <p><strong>Name:</strong> {selectedTicket.name || ""}</p>
+        <p><strong>Dept:</strong> {selectedTicket.department || ""}</p>
+        <p><strong>Title:</strong> {selectedTicket.title || ""}</p>
+        <p><strong>Description:</strong> {selectedTicket.description || ""}</p>
+        <p><strong>Category:</strong> {selectedTicket.category || ""}</p>
+        <p><strong>Type:</strong> {selectedTicket.type || ""}</p>
+        <p><strong>Priority:</strong> {selectedTicket.priority || ""}</p>
+        <p><strong>Status:</strong> {selectedTicket.status || ""}</p>
+        <p><strong>Attachment:</strong> {selectedTicket.attachment || ""}</p>
+      </div>
+      <div className="flex justify-center gap-8 mt-6">
+        <button className="bg-[#8894FF]  text-black px-6 py-2 rounded-[10px]" onClick={() => console.log("Update clicked")}>
+          Update
+        </button>
+        <button className="bg-[#43D752] text-black px-6 py-2 rounded-[10px]" onClick={closeModal}>
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
       </div>
 </div>
       <div className="flex justify-between items-center mt-4 text-[22px] text-black">

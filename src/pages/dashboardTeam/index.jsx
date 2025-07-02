@@ -4,6 +4,9 @@ import NewTicketView from "../../components/NewTicket"
 import MyTicketView from "../../components/MyTicket"
 import DashboardViewTeam from "../../components/DashboardTeam"
 import TicketApproval from "../../components/TicketApproval"
+import MyTicketTeam from "../../components/MyTicketTeam"
+import PerformanceCard from "../../components/Performance"
+import UserProfile from "../../components/UserProfile"
 const TeamDashboard = () => {
  const [activeView, setActiveView] = useState("dashboard")
  
@@ -24,11 +27,11 @@ const TeamDashboard = () => {
        <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
  <path d="M12 28C13.8921 28 15.427 26.4332 15.427 24.5H8.57305C8.57305 26.4332 10.1079 28 12 28ZM23.5387 19.8127C22.5037 18.6774 20.5671 16.9695 20.5671 11.375C20.5671 7.12578 17.6486 3.72422 13.7132 2.88969V1.75C13.7132 0.783672 12.9461 0 12 0C11.0539 0 10.2868 0.783672 10.2868 1.75V2.88969C6.35145 3.72422 3.43288 7.12578 3.43288 11.375C3.43288 16.9695 1.49628 18.6774 0.461286 19.8127C0.139858 20.1655 -0.00264152 20.5871 3.70385e-05 21C0.00592988 21.8969 0.695392 22.75 1.71967 22.75H22.2803C23.3046 22.75 23.9946 21.8969 24 21C24.0026 20.5871 23.8601 20.1649 23.5387 19.8127Z" fill="black"/>
  </svg>
- 
+ <button onClick={() => setActiveView("user-profile")}>
            <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
  <path d="M2 28C2 28 0 28 0 25.6667C0 23.3333 2 16.3333 12 16.3333C22 16.3333 24 23.3333 24 25.6667C24 28 22 28 22 28H2ZM12 14C13.5913 14 15.1174 13.2625 16.2426 11.9497C17.3679 10.637 18 8.85651 18 7C18 5.14348 17.3679 3.36301 16.2426 2.05025C15.1174 0.737498 13.5913 0 12 0C10.4087 0 8.88258 0.737498 7.75736 2.05025C6.63214 3.36301 6 5.14348 6 7C6 8.85651 6.63214 10.637 7.75736 11.9497C8.88258 13.2625 10.4087 14 12 14Z" fill="black"/>
  </svg>
- 
+ </button>
     <svg width="27" height="25" viewBox="0 0 27 25" fill="none" xmlns="http://www.w3.org/2000/svg">
  <path d="M26.6263 13.6059L17.6259 24.5416C16.8223 25.518 15.4293 24.8345 15.4293 23.435V17.186H8.14326C7.43073 17.186 6.85748 16.4895 6.85748 15.6238V9.37483C6.85748 8.50909 7.43073 7.81259 8.14326 7.81259H15.4293V1.56362C15.4293 0.170627 16.8169 -0.519362 17.6259 0.457038L26.6263 11.3927C27.1246 12.0046 27.1246 12.994 26.6263 13.6059ZM10.2862 24.2161V21.6124C10.2862 21.1828 9.99692 20.8313 9.64334 20.8313H5.14311C4.19485 20.8313 3.42874 19.9004 3.42874 18.7483V6.25035C3.42874 5.09819 4.19485 4.16736 5.14311 4.16736H9.64334C9.99692 4.16736 10.2862 3.81585 10.2862 3.38624V0.782505C10.2862 0.352889 9.99692 0.00138444 9.64334 0.00138444H5.14311C2.30369 0.00138444 0 2.8004 0 6.25035V18.7483C0 22.1982 2.30369 24.9972 5.14311 24.9972H9.64334C9.99692 24.9972 10.2862 24.6457 10.2862 24.2161Z" fill="black"/>
  </svg>
@@ -140,6 +143,41 @@ const TeamDashboard = () => {
                    </div>
                  </button>
                </li>
+                <li>
+                 <button
+                   onClick={() => setActiveView("performance")}
+                   className={`w-full flex items-center space-x-3 px-3 py-2 rounded text-left text-gray-800 ${
+                     activeView === "performance" ? "bg-gray-400" : "hover:bg-gray-400"
+                   }`}
+                 >
+                        <div className="flex items-center space-x-3">
+                                  {activeView === "performance" && (
+        <svg
+    width="13"
+    height="20"
+    viewBox="0 0 13 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="ml-auto"
+  >
+         <path
+      d="M2.42611 0L0 2.33956L7.88057 9.95556L0 17.5716L2.42611 19.9111L12.75 9.95556L2.42611 0Z"
+      fill="black"
+    />
+       </svg>
+     )}
+       <img
+  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzEiIGhlaWdodD0iMjYiIHZpZXdCb3g9IjAgMCAzMSAyNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIzLjA1MzUgMTQuMzExOUMyMi45MTU1IDE0LjMxMTkgMjIuNzc3NSAxNC40MzEyIDIyLjYzOTUgMTQuNTUwNUwyMi4zNjM2IDE2LjEwMDlDMjEuOTQ5NiAxNi4yMjAyIDIxLjUzNTcgMTYuNDU4NyAyMS4yNTk3IDE2LjY5NzJMMTkuNjAzOSAxNi4xMDA5QzE5LjQ2NTkgMTYuMTAwOSAxOS4zMjc5IDE2LjEwMDkgMTkuMTg5OSAxNi4yMjAyTDE3LjgxMDEgMTguMjQ3N0MxNy42NzIxIDE4LjM2NyAxNy44MTAxIDE4LjQ4NjIgMTcuOTQ4IDE4LjYwNTVMMTkuNDY1OSAxOS41NTk2VjIwLjc1MjNMMTcuOTQ4IDIxLjcwNjRDMTcuODEwMSAyMS44MjU3IDE3LjgxMDEgMjEuOTQ1IDE3LjgxMDEgMjIuMDY0MkwxOS4xODk5IDI0LjA5MTdDMTkuMzI3OSAyNC4yMTEgMTkuNDY1OSAyNC4yMTEgMTkuNjAzOSAyNC4yMTFMMjEuMjU5NyAyMy42MTQ3QzIxLjY3MzYgMjMuODUzMiAyMS45NDk2IDI0LjA5MTcgMjIuMzYzNiAyNC4yMTFMMjIuNjM5NSAyNS43NjE1QzIyLjYzOTUgMjUuODgwNyAyMi43Nzc1IDI2IDIyLjA1MzUgMjZIMjUuODEzMkMyNS45NTEyIDI2IDI2LjA4OTIgMjUuODgwNyAyNi4wODkyIDI1Ljc2MTVMMjYuMzY1MiAyNC4yMTFDMjYuNzc5MSAyNC4wOTE3IDI3LjE5MzEgMjMuODUzMiAyNy40NjkgMjMuNjE0N0wyOS4xMjQ5IDI0LjIxMUMyOS4yNjI4IDI0LjIxMSAyOS41Mzg4IDI0LjIxMSAyOS41Mzg4IDI0LjA5MTdMMzAuOTE4NyAyMi4wNjQyQzMxLjA1NjcgMjEuOTQ1IDMwLjkxODcgMjEuODI1NyAzMC43ODA3IDIxLjcwNjRMMjkuMjYyOCAyMC43NTIzVjE5LjU1OTZMMzAuNzgwNyAxOC42MDU1QzMwLjkxODcgMTguNDg2MiAzMC45MTg3IDE4LjM2NyAzMC45MTg3IDE4LjI0NzdMMjkuNTM4OCAxNi4yMjAyQzI5LjQwMDggMTYuMTAwOSAyOS4yNjI4IDE2LjEwMDkgMjkuMTI0OSAxNi4xMDA5TDI3LjYwNyAxNi42OTcyQzI3LjE5MzEgMTYuNDU4NyAyNi45MTcxIDE2LjIyMDIgMjYuMzY1MiAxNi4xMDA5TDI2LjA4OTIgMTQuNTUwNUMyNi4wODkyIDE0LjQzMTIgMjUuOTUxMiAxNC4zMTE5IDI1LjgxMzIgMTQuMzExOUgyMy4wNTM1Wk0yNC40MzM0IDE4LjQ4NjJDNS41MzcyIDE4LjQ4NjIgMjYuNTAzMSAxOS4zMjExIDI2LjUwMzEgMjAuMjc1MkMyNi41MDMxIDIxLjIyOTQgMjUuNTM3MiAyMi4wNjQyIDI0LjQzMzQgMjIuMDY0MkMyMy4zMjk1IDIyLjA2NDIgMjIuMzYzNiAyMS4yMjk0IDIyLjM2MzYgMjAuMjc1MkMyMi4zNjM2IDE5LjMyMTEgMjMuMzI5NSAxOC40ODYyIDI0LjQzMzQgMTguNDg2MlpNMTUuNzQwMyAyMy44NTMySDAuOTc1ODNM
+MjguNTcyOSAwVjEyLjc2MTVDMjcuMzMxIDEyLjI4NDQgMjUuOTUxMiAxMS45MjY2IDI0LjQzMzQgMTEuOTI2NkMxOS4wNTE5IDExLjkyNjYgMTQuNzc0NCAxNS42MjM5IDE0Ljc3NDQgMjAuMjc1MkMxNC43NzQ0IDIxLjU4NzIgMTUuMDUwMyAyMi43Nzk4IDE1Ljc0MDMgMjMuODUzMloiIGZpbGw9ImJsYWNrIi8+Cjwvc3ZnPgo="
+  alt="Gear Icon"
+  className="w-[31px] h-[26px]"
+/>
+
+ 
+                   <span>Performance</span>
+                   </div>
+                 </button>
+               </li>
              </ul>
            </nav>
          </aside>
@@ -148,7 +186,9 @@ const TeamDashboard = () => {
            <main className="flex-1 overflow-y-auto bg-white p-6">
              {activeView === "dashboard" && <DashboardViewTeam />}
              {activeView === "new-ticket" && <TicketApproval />}
-             {activeView === "my-ticket" && <MyTicketView />}
+             {activeView === "my-ticket" && <MyTicketTeam />}
+             {activeView === "performance" && <PerformanceCard />}
+  {activeView === "user-profile" && <UserProfile/>}
            </main>
            
            <footer className="bg-teal-400 h-[50px] flex items-center justify-center text-sm text-gray-700">

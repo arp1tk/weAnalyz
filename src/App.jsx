@@ -9,6 +9,7 @@ import Signup from './pages/signup'
 import Forgot from './pages/forgot'
 import HelpdeskUserApp from './pages/dashboardUser'
 import TeamDashboard from './pages/dashboardTeam'
+import UserProfile from './components/UserProfile'
 function App() {
   const routesArray = [
     {
@@ -30,6 +31,10 @@ function App() {
      {
       path: "/dashboard/team",
       element: <TeamDashboard/>,
+    },
+    {
+      path: "/profile",
+      element: <UserProfile/>,
     }
   ];
   
@@ -37,10 +42,7 @@ function App() {
   return (
     <>
   
-      {/* <CursorFollower/> */}
-   
-      {/* <Header /> */}
-      {/* Full screen height minus header with flex column */}
+      
       <div className="  ">
         {routesElement}
       </div>

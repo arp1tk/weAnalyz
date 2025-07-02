@@ -1,4 +1,18 @@
-export default function MyTicketView() {
+import { useState } from "react";
+export default function MyTicketTeam() {
+
+      const [selectedTicket, setSelectedTicket] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = (ticket) => {
+    setSelectedTicket(ticket);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedTicket(null);
+    setShowModal(false);
+  };
   const tickets = [
     {
       id: "1234",
@@ -6,20 +20,23 @@ export default function MyTicketView() {
       category: "Access Issue",
       priority: "High",
       date: "13/08/21",
+      status: "In Progress",
     },
     {
-      id: "1124",
+      id: "1124", 
       subject: "New ticket issue",
-      category: "Access Issue", 
+      category: "Access Issue",
       priority: "Medium",
       date: "14/08/21",
+      status: "On hold",
     },
     {
       id: "1224",
       subject: "New request",
-      category: "Feedback",
+      category: "Feedback", 
       priority: "Low",
       date: "13/08/21",
+      status: "Closed",
     },
     {
       id: "1244",
@@ -27,6 +44,7 @@ export default function MyTicketView() {
       category: "Ticketing",
       priority: "High",
       date: "14/08/21",
+      status: "In Progress",
     },
     {
       id: "1114",
@@ -34,16 +52,15 @@ export default function MyTicketView() {
       category: "Access Issue",
       priority: "High",
       date: "3/08/21",
+      status: "In Progress",
     },
   ];
 
   return (
     <div className="w-full h-full p-4">
-      <h2 className="text-[24px] font-sanchez font-normal mb-3 text-gray-800">
-        Ticket Approval
-      </h2>
+      <h2 className="text-[24px] font-bold font-sanchez mb-6 text-black">My Ticket</h2>
       
-      <div className="flex-col justify-between items-center mb-4">
+       <div className="flex-col justify-between items-center mb-4">
         <div className="relative w-[308px]">
           <input
             type="text"
@@ -78,83 +95,112 @@ export default function MyTicketView() {
         </div>
       </div>
 
-      <div className="w-full">
-        <div className="rounded-lg overflow-hidden">
-          <table className="w-full table-auto">
-            <thead className="bg-white">
-              <tr className="text-[22px] text-black">
-                <th className="px-4 py-3 text-left font-normal">Ticket No.</th>
-                <th className="px-4 py-3 text-left font-normal">Subject</th>
-                <th className="px-4 py-3 text-left font-normal">Category</th>
-                <th className="px-4 py-3 text-left font-normal">Priority</th>
-                <th className="px-4 py-3 text-left font-normal">Date</th>
-                <th className="px-4 py-3 text-left font-normal">Action</th>
-                <th className="px-4 py-3 text-left font-normal">Assign to</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tickets.map((ticket, index) => (
-                <tr
-                  key={ticket.id}
-                  className={`${
-                    index % 2 === 0 ? "bg-[#C4C4C45E]" : "bg-[#C4C4C48F]"
-                  }`}
-                >
-                  <td className="px-4 py-3 text-[22px] text-[#000AFF] underline">
-                    {ticket.id}
-                  </td>
-                  <td className="px-4 py-3 text-[22px] text-[#000000DB]">
-                    {ticket.subject}
-                  </td>
-                  <td className="px-4 py-3 text-[22px] text-black">
-                    {ticket.category}
-                  </td>
-                  <td className="px-4 py-3 text-[22px] text-black">
-                    {ticket.priority}
-                  </td>
-                  <td className="px-4 py-3 text-[22px] text-black">
-                    {ticket.date}
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex space-x-2">
-                      <button className="w-6 h-6 rounded flex items-center justify-center">
-                        <svg width="25" height="19" viewBox="0 0 25 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.4911 18.2766L0.366101 10.1516C-0.122034 9.66351 -0.122034 8.87206 0.366101 8.38387L2.13383 6.6161C2.62196 6.12792 3.41346 6.12792 3.9016 6.6161L9.37499 12.0894L21.0984 0.366101C21.5865 -0.122034 22.378 -0.122034 22.8662 0.366101L24.6339 2.13387C25.122 2.62201 25.122 3.41346 24.6339 3.90165L10.2589 18.2767C9.77069 18.7648 8.97924 18.7648 8.4911 18.2766Z" fill="black"/>
+      <div className="w-full rounded-lg overflow-hidden">
+        <table className="w-full table-auto">
+          <thead className="bg-white">
+            <tr className="text-[22px] text-black">
+              <th className="px-4 py-3 text-left font-normal">Ticket No.</th>
+              <th className="px-4 py-3 text-left font-normal">Subject</th>
+              <th className="px-4 py-3 text-left font-normal">Category</th>
+              <th className="px-4 py-3 text-left font-normal">Priority</th>
+              <th className="px-4 py-3 text-left font-normal">Date</th>
+              <th className="px-4 py-3 text-left font-normal">Status</th>
+              <th className="px-4 py-3 text-left font-normal">Person in charge</th>
+              <th className="px-4 py-3 text-left font-normal">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tickets.map((ticket, index) => (
+              <tr key={ticket.id} className={index % 2 === 0 ? "bg-[#C4C4C45E]" : "bg-[#C4C4C48F]"}>
+             <td
+  className="px-4 py-3 text-[22px] text-[#000AFF] underline cursor-pointer"
+  onClick={() => openModal(ticket)}
+>
+  {ticket.id}
+</td>
+                <td className="px-4 py-3 text-[22px] text-[#000000DB]">{ticket.subject}</td>
+                <td className="px-4 py-3 text-[22px] text-black">{ticket.category}</td>
+                <td className="px-4 py-3 text-[22px] text-black">{ticket.priority}</td>
+                <td className="px-4 py-3 text-[22px] text-black">{ticket.date}</td>
+              <td className="px-4 py-3 text-[22px]">
+  <span className={`px-3 py-1 rounded-full ${
+    ticket.status === "In Progress" ? "bg-[#5CDB95] text-black" : 
+    ticket.status === "On hold" ? "bg-[#05386B] text-white" : 
+    ticket.status === "Closed" ? "bg-black text-white" : 
+    "bg-gray-200 text-black"
+  }`}>
+    {ticket.status}
+  </span>
+</td>
+                <td className="px-4 py-3 text-[22px] text-black"></td>
+               <td className="px-4 py-3 text-[22px] text-black">
+  <div className="flex space-x-2">
+   
+    <button>
+   <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.13 9L16.39 7.74C16.83 7.3 17.39 7.06 18 7V6L12 0H2C0.89 0 0 0.89 0 2V16C0 16.5304 0.210714 17.0391 0.585786 17.4142C0.960859 17.7893 1.46957 18 2 18H8V16.13L8.13 16H2V2H9V9H15.13ZM11 1.5L16.5 7H11V1.5ZM16.13 10.83L18.17 12.87L12.04 19H10V16.96L16.13 10.83ZM19.85 11.19L18.87 12.17L16.83 10.13L17.81 9.15C18 8.95 18.33 8.95 18.53 9.15L19.85 10.47C20.05 10.67 20.05 11 19.85 11.19Z" fill="black"/>
 </svg>
 
-                      </button>
-                      <button className="w-6 h-6 rounded flex items-center justify-center">
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 0C18.636 0 24 5.364 24 12C24 18.636 18.636 24 12 24C5.364 24 0 18.636 0 12C0 5.364 5.364 0 12 0ZM16.308 6L12 10.308L7.692 6L6 7.692L10.308 12L6 16.308L7.692 18L12 13.692L16.308 18L18 16.308L13.692 12L18 7.692L16.308 6Z" fill="black"/>
+    </button>
+
+   
+    <button>
+   <svg width="28" height="18" viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.1667 15.4286V18H8.16667V15.4286C8.16667 15.4286 8.16667 10.2857 15.1667 10.2857C22.1667 10.2857 22.1667 15.4286 22.1667 15.4286ZM18.6667 3.85714C18.6667 3.09427 18.4614 2.34853 18.0768 1.71423C17.6922 1.07993 17.1456 0.585547 16.5061 0.293609C15.8665 0.00167125 15.1628 -0.0747131 14.4839 0.0741156C13.8049 0.222944 13.1813 0.590301 12.6918 1.12973C12.2023 1.66916 11.869 2.35644 11.7339 3.10465C11.5989 3.85287 11.6682 4.62841 11.9331 5.33321C12.198 6.03801 12.6466 6.64041 13.2222 7.06424C13.7977 7.48807 14.4744 7.71429 15.1667 7.71429C16.0949 7.71429 16.9852 7.30791 17.6415 6.58456C18.2979 5.8612 18.6667 4.88012 18.6667 3.85714ZM22.4 10.3629C23.0377 11.0112 23.5519 11.7931 23.9124 12.6629C24.273 13.5326 24.4727 14.4728 24.5 15.4286V18H28V15.4286C28 15.4286 28 10.9929 22.4 10.3629ZM21 1.46718e-06C20.6475 0.000233941 20.2972 0.0609614 19.9617 0.180001C20.6442 1.25868 21.0102 2.54209 21.0102 3.85714C21.0102 5.17219 20.6442 6.45561 19.9617 7.53429C20.2972 7.65333 20.6475 7.71405 21 7.71429C21.9283 7.71429 22.8185 7.30791 23.4749 6.58456C24.1313 5.8612 24.5 4.88012 24.5 3.85714C24.5 2.83417 24.1313 1.85309 23.4749 1.12973C22.8185 0.406378 21.9283 1.46718e-06 21 1.46718e-06ZM9.33333 6.42857H5.83333V2.57143H3.5V6.42857H0V9H3.5V12.8571H5.83333V9H9.33333V6.42857Z" fill="black"/>
 </svg>
 
+    </button>
 
-                      </button>
-                    </div>
-                  </td>
-                <td className="px-4  py-3 relative">
-  <div className="relative ">
-    <select className="appearance-none bg-gray-400 h-[46px] px-2 py-1 pr-6 text-sm w-full focus:outline-none">
-      <option value=""></option>
-     
-    </select>
-    <div className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
-     <svg width="34" height="36" viewBox="0 0 34 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M0.87085 4.5C0.87085 3.30653 1.29568 2.16193 2.05187 1.31802C2.80807 0.474106 3.83369 0 4.90311 0L29.0967 0C30.1661 0 31.1917 0.474106 31.9479 1.31802C32.7041 2.16193 33.1289 3.30653 33.1289 4.5V31.5C33.1289 32.6935 32.7041 33.8381 31.9479 34.682C31.1917 35.5259 30.1661 36 29.0967 36H4.90311C3.83369 36 2.80807 35.5259 2.05187 34.682C1.29568 33.8381 0.87085 32.6935 0.87085 31.5V4.5ZM8.93537 13.5C8.74105 13.4999 8.55086 13.5626 8.38769 13.6803C8.22452 13.7981 8.09532 13.966 8.01566 14.1637C7.93599 14.3615 7.90924 14.5808 7.93863 14.7952C7.96803 15.0095 8.05231 15.2098 8.18133 15.372L16.2458 25.497C16.3404 25.616 16.4565 25.7112 16.5865 25.7764C16.7165 25.8416 16.8574 25.8753 16.9999 25.8753C17.1424 25.8753 17.2833 25.8416 17.4132 25.7764C17.5432 25.7112 17.6593 25.616 17.7539 25.497L25.8184 15.372C25.9475 15.2098 26.0317 15.0095 26.0611 14.7952C26.0905 14.5808 26.0638 14.3615 25.9841 14.1637C25.9044 13.966 25.7752 13.7981 25.6121 13.6803C25.4489 13.5626 25.2587 13.4999 25.0644 13.5H8.93537Z" fill="black" fill-opacity="0.66"/>
+ 
+    <button>
+   <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 18H14V15.8824H0V18ZM14 6.35294H10V0H4V6.35294H0L7 13.7647L14 6.35294Z" fill="black"/>
 </svg>
 
-    </div>
+    </button>
   </div>
 </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+{showModal && selectedTicket && (
+  <div className="fixed inset-0 font-sanchez bg-gray-400 bg-opacity-50 flex justify-center items-center z-50"
+  onClick={(e) => e.target === e.currentTarget && closeModal()}
+>
+    <div className="bg-white p-8 rounded shadow-md w-[751px] h-[600px] text-left">
+      <h2 className="text-2xl font-semibold text-center mb-4">Ticket Details</h2>
+      <div className="space-y-2 text-lg">
+        <p><strong>Ticket No:</strong> {selectedTicket.id}</p>
+        <p><strong>Date:</strong> {selectedTicket.date || ""}</p>
+        <p><strong>Name:</strong> {selectedTicket.name || ""}</p>
+        <p><strong>Dept:</strong> {selectedTicket.department || ""}</p>
+        <p><strong>Title:</strong> {selectedTicket.title || ""}</p>
+        <p><strong>Description:</strong> {selectedTicket.description || ""}</p>
+        <p><strong>Category:</strong> {selectedTicket.category || ""}</p>
+        <p><strong>Type:</strong> {selectedTicket.type || ""}</p>
+        <p><strong>Priority:</strong> {selectedTicket.priority || ""}</p>
+        <p><strong>Status:</strong> {selectedTicket.status || ""}</p>
+        <p><strong>Attachment:</strong> {selectedTicket.attachment || ""}</p>
+      </div>
+      <div className="flex justify-center gap-8 mt-6">
+        <button className="bg-[#8894FF]  text-black px-6 py-2 rounded-[10px]" onClick={() => console.log("Update clicked")}>
+          Update
+        </button>
+        <button className="bg-[#43D752] text-black px-6 py-2 rounded-[10px]" onClick={closeModal}>
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+  
+)}
+
       <div className="flex justify-between items-center mt-4 text-[22px] text-black">
         <div>Showing 1 to 5 of 5 entries</div>
-        <div className="flex space-x-1 items-center">
+         <div className="flex space-x-1 items-center">
   <button className="px-3 py-1 hover:bg-gray-100 flex items-center space-x-1">
    <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M14.3392 0.759659C14.2754 0.694996 14.1996 0.643692 14.1161 0.608687C14.0327 0.573683 13.9432 0.555664 13.8529 0.555664C13.7625 0.555664 13.673 0.573683 13.5896 0.608687C13.5061 0.643692 13.4303 0.694996 13.3665 0.759659L5.12337 9.092C5.0594 9.1565 5.00864 9.23313 4.97401 9.31749C4.93938 9.40184 4.92156 9.49228 4.92156 9.58361C4.92156 9.67494 4.93938 9.76538 4.97401 9.84974C5.00864 9.9341 5.0594 10.0107 5.12337 10.0752L13.3665 18.4076C13.4955 18.5379 13.6704 18.6112 13.8529 18.6112C14.0353 18.6112 14.2102 18.5379 14.3392 18.4076C14.4682 18.2772 14.5407 18.1003 14.5407 17.916C14.5407 17.7316 14.4682 17.5547 14.3392 17.4243L6.58103 9.58361L14.3392 1.74288C14.4032 1.67838 14.4539 1.60175 14.4886 1.51739C14.5232 1.43304 14.541 1.3426 14.541 1.25127C14.541 1.15993 14.5232 1.0695 14.4886 0.985141C14.4539 0.900783 14.4032 0.824159 14.3392 0.759659Z" fill="black" fill-opacity="0.91"/>
@@ -181,7 +227,6 @@ export default function MyTicketView() {
 
   </button>
 </div>
-
       </div>
     </div>
   );
